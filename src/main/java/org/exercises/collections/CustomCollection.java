@@ -11,7 +11,7 @@ public class CustomCollection<T> implements Iterable<T>{
     private T[] arr;
 
     public CustomCollection(int size) {
-        arr = (T[]) new Object[size];
+        arr = (T[]) new Object[size]; //works only because the initialization is done with an empty array of some size. If array has elements then the cast would have failed.
         index = 0;
     }
 
@@ -49,8 +49,12 @@ public class CustomCollection<T> implements Iterable<T>{
         @Override
         public T next() {
             IO.println("next called");
+            //cursor -> postfix increment
             return arr[cursor++];
         }
+
+        //whereas a previous would do something like
+        //return arr[--cursor] -> cursor prefix decrement
     }
 
     @Override
