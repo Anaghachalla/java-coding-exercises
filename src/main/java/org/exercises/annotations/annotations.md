@@ -1,0 +1,1 @@
+1. Implement an annotation, and create a small custom framework (read it, do some action based on the annotation)
