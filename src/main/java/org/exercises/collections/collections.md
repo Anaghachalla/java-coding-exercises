@@ -39,5 +39,5 @@
 * 
 
 
-![collections1.png](../../../../resources/collections1.png)
-![collections2.png](../../../../resources/collections2.png)
+![collections1.png](../../../../../../references/collections1.png)
+![collections2.png](../../../../../../references/collections2.png)
