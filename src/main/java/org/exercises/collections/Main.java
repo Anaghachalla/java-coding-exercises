@@ -10,16 +10,111 @@ public class Main {
         IO.println("Hello and welcome to Collections Main!");
 
         //1. Implement a generic array as a custom collection and iterate over it.
-//        customCollectionCreateAndIterate();
+        customCollectionCreateAndIterate();
 
         //collectionDemo - Iterator, ListIterator, toArray
         collectionDemoInt();
         collectionDemoString();
 
+        //queues demo - FIFO queue, stack, deque, priority queue
+        queuesDemo();
+        stackDemo();
+        dequeDemo();
+        priorityQueueDemo();
+    }
+
+    static void priorityQueueDemo() {
+        IO.println("Priority queue------------");
+        PriorityQueue<Integer> pq = new PriorityQueue<>();
+        pq.offer(1);
+        pq.offer(9);
+        pq.offer(0);
+        pq.offer(2);
+
+        IO.println("Current priority queue: " + pq);
+        
+
+    }
+
+    static void queuesDemo() {
+        //FIFO
+        IO.println("queue--------");
+        Queue<Integer> queue = new LinkedList<>();
+        queue.offer(9);
+        queue.offer(1);
+        queue.offer(0);
+
+        IO.println("Current queue: " + queue);
+
+        IO.println("Queue polled: " + queue.poll());
+        IO.println("Queue empty: " + queue.isEmpty());
+        IO.println("Current queue: " + queue);
+        IO.println("Queue peek: " + queue.peek());
+
+        while(true) {
+            Integer i = queue.poll();
+            IO.println("Queue polled: " + i);
+            if (i == null) { //no exception, just returns a null value
+                IO.println("Queue is empty - cannot poll further");
+                break;
+            }
+        }
+
+    }
+
+    static void stackDemo() {
+        //LIFO
+        //standard implementation is with ArrayDeque, Stack is legacy
+        IO.println("stack------");
+        //Deque<Integer> stack = new ArrayDeque<>(); -> ideally
+        Stack<Integer> stack = new Stack<>();
+        stack.push(9);
+        stack.push(1);
+        stack.push(0);
+
+        IO.println("Current stack: " + stack);
+        IO.println("Stack Popped: " + stack.pop());
+        IO.println("Current stack: " + stack);
+
+        IO.println("Stack peek: " + stack.peek());
+
+        while(!stack.isEmpty()) {
+            IO.println("Stack Pop loop: " + stack.pop());
+        }
+
+    }
+
+    static void dequeDemo() {
+        //Double ended queues
+
+        IO.println("deque--------");
+        Deque<Integer> deque = new ArrayDeque<>();
+        deque.offerFirst(1);
+        deque.offerFirst(9);
+        deque.offerLast(0);
+        deque.offerFirst(7);
+
+        IO.println("Current deque: " + deque);
+
+        IO.println("Deque poll first: " + deque.pollFirst());
+        IO.println("Deque poll last: " + deque.pollLast());
+
+        IO.println("Current deque: " + deque);
+
+        IO.println("Deque peek: " + deque.peek());
+
+        try {
+            while(true) {
+                Integer i = deque.remove();
+                IO.println("Queue polled: " + i);
+            }
+        } catch (Exception e) {
+            IO.println("Caught exception while deque remove: " + e);
+        }
     }
 
     static void collectionDemoInt() {
-        CollectionDemo<Integer> cd = new CollectionDemo<>(List.of(1,2,3,4,5));
+        ListsDemo<Integer> cd = new ListsDemo<>(List.of(1,2,3,4,5));
 
         ListIterator<Integer> iterator = cd.getListIterator(LinkedList.class);
 
@@ -29,7 +124,7 @@ public class Main {
     }
 
     static void collectionDemoString() {
-        CollectionDemo<String> cdStr = new CollectionDemo<>(List.of("Anagha", "Challa"));
+        ListsDemo<String> cdStr = new ListsDemo<>(List.of("Anagha", "Challa"));
         String[] strArr = cdStr.getArray(ArrayList.class, String.class);
         IO.println("Printing the array - " + Arrays.toString(strArr));
         IO.println("Printing the LinkedList" + cdStr.getLinkedList());

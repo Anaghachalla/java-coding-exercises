@@ -8,18 +8,18 @@ import java.util.*;
 
 @Getter
 @Setter
-public class CollectionDemo<T> {
+public class ListsDemo<T> {
     private List<T> arrayList;
     private List<T> vector;
     private List<T> linkedList;
 
-    public CollectionDemo() {
+    public ListsDemo() {
         arrayList = new ArrayList<>();
         vector = new Vector<>();
         linkedList = new LinkedList<>();
     }
 
-    public CollectionDemo(Collection<T> list) {
+    public ListsDemo(Collection<T> list) {
         arrayList = new ArrayList<>(list);
         vector = new Vector<>(list);
         linkedList = new LinkedList<>(list);
