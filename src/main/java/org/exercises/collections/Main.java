@@ -28,6 +28,37 @@ public class Main {
 
         //set, hashset, linkedhashset
         setDemo();
+        sortedSetDemo();
+
+    }
+
+    static void sortedSetDemo() {
+        IO.println("SortedSet--------------");
+        List<StudentMarks> marksList = getStudentMarksList();
+
+        Set<StudentMarks> smarks1 = new TreeSet<>(marksList);
+        IO.println("TreeSet with comparable on maths marks:: " + smarks1);
+
+        Set<StudentMarks> smarks2 = new TreeSet<>((a,b) -> b.getPhysics() - a.getPhysics());
+        smarks2.addAll(marksList);
+
+        IO.println("TreeSet with comparator on phy marks:: " + smarks2);
+
+        NavigableSet<Integer> set1 = new TreeSet<>();
+        set1.add(9);
+        set1.add(4);
+        set1.add(0);
+        set1.add(2);
+
+        IO.println("Integer TreeSet:: " + set1);
+
+        IO.println("Floor 1 - " + set1.floor(1));
+        IO.println("Ceiling 1 - " + set1.ceiling(1));
+        IO.println("Floor/Ceiling 2 - " + set1.ceiling(2));
+
+        IO.println("Higher 2 - " + set1.higher(2));
+        IO.println("Lower 2 - " + set1.lower(2));
+
     }
 
     static void setDemo() {
@@ -60,9 +91,7 @@ public class Main {
             IO.print("HS2: " + i + ", ");
         }
 
-        List<StudentMarks> smarks = getStudentMarksList();
-
-        HashSet<StudentMarks> smSet = new HashSet<>(smarks);
+        HashSet<StudentMarks> smSet = new HashSet<>(getStudentMarksList());
 
         IO.println("\nCheck for contains in set: " + smSet.contains(new StudentMarks("a", 70, 100))); //this would return false if hashcode() and equals() are not overridden in StudentMarks class
 

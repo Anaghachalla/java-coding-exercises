@@ -90,4 +90,21 @@
   * When add() or contains() is called, the hash is used to locate the appropriate bucket, and equals() is then used to determine whether the target element is actually present. If yes, add will not happen and contains return true.
   * For custom classes, if equality should be based on member values rather than object identity, equals() and hashCode() must be overridden consistently because HashSet uses hashCode() to locate the bucket and equals() to determine equality within that bucket. If equal objects produce different hash codes, the set may fail to find an object that is logically equal. The core property of set to not contain duplicates may not hold as we expect.
   * If two objects are equal according to equals(), they must have the same hash code. However, two objects having the same hash code does not mean they are equal.
-* 
+
+### SortedSet, NavigableSet interfaces and TreeSet
+* `TreeSet` (concrete class) ---implements---> `NavigableSet` interface ---extends---> `SortedSet` interface ---extends---> `Set` interface
+* `SortedSet` interface internally uses a balanced binary search tree to handle auto sorting of set elements.
+* Sorting of elements is done using either a comparable or a comparator (same as priority queue)
+* Methods - `first()`, `last()`
+* `NavigableSet` provides navigation (i.e. operations requiring searching for elements in a navigable set) methods to find the closest matches for specific search targets.
+* In case of absence of elements, these operations return null rather than throw exception.
+* Methods (in addition to those provided by the SortedSet):
+  * E pollFirst(E e) - removes the first element in the sorted order and returns it
+  * E pollLast(E e) - removes the last element in the sorted order and returns it
+  * E ceiling(E e) - returns the higher closest match (or the same element if present)
+  * E floor(E e) - returns the lower closest match (or the same element if present)
+  * E higher(E e) - returns element strictly greater than the element e
+  * E lower(E e) - returns element strictly lower than the element e
+* Used in range-interval problems
+
+### Map interface
