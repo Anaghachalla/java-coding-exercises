@@ -2,9 +2,8 @@
 1. Implement a generic array as a custom collection and iterate over it.
 
 ## Notes
-
-![collections1.png](../../../../../../references/collections1.png)
-![collections2.png](../../../../../../references/collections2.png)
+![core_collection_interfaces.png](../../../../../../references/core_collection_interfaces.png)
+![collection_implementations.png](../../../../../../references/collection_implementations.png)
 
 ### Collection and Iterable interfaces
 * A ForEach (enhanced-for) loop can only be applied to an instance of a class that implements the `Iterable` interface.
@@ -69,7 +68,7 @@
 
 ### Set interface
 * Set is a unique collection of elements. Duplicate insertions are dropped.
-* Insertion and retrieval take constant time.
+* Insertion, removal and retrieval take constant time.
 * Unordered and not sortable.
 * Set methods -
   * `containsAll()`
@@ -81,10 +80,10 @@
 * `HashSet` (concrete class), `LinkedHashSet` (concrete class) ---implements---> `Set` (interface)
 * `HashSet` uses a hash-table structure. It does not maintain insertion order.
 * `LinkedHashSet` maintains insertion order with the help of the hash-table combined with an internal doubly linkedlist behind the scenes. It doesn't maintain order to provide positional access. It maintains order so its iteration order is predictable.
-* **Internal working of a Hashset and Hash collision**:
+* **Internal working of a Hashset and Hash collision (similar to a HashMap)**:
   * HashSet is internally backed by a HashMap.
   * Internally, the hash table contains an array of slots called buckets. A bucket is simply one position in this array where entries are stored.
-  * When an element is inserted, its hashCode() is used to determine the appropriate bucket.
+  * In set, when an element is inserted, it is hashed using the hashCode() method, and that value is used to determine the appropriate bucket. (Whereas in a HashMap, the key is hashed to determine the bucket)
   * Multiple elements can map to the same bucket even if their hash codes are different. This is called a **hash collision**.
   * Colliding entries are initially maintained as a linked structure; in modern Java, a heavily populated bucket can be converted to a red-black tree. 
   * When add() or contains() is called, the hash is used to locate the appropriate bucket, and equals() is then used to determine whether the target element is actually present. If yes, add will not happen and contains return true.
@@ -94,7 +93,7 @@
 ### SortedSet, NavigableSet interfaces and TreeSet
 * `TreeSet` (concrete class) ---implements---> `NavigableSet` interface ---extends---> `SortedSet` interface ---extends---> `Set` interface
 * `SortedSet` interface internally uses a balanced binary search tree to handle auto sorting of set elements.
-* Sorting of elements is done using either a comparable or a comparator (same as priority queue)
+* Sorting of elements is done using either a comparable (natural ordering) or a comparator (total ordering) (same as priority queue)
 * Methods - `first()`, `last()`
 * `NavigableSet` provides navigation (i.e. operations requiring searching for elements in a navigable set) methods to find the closest matches for specific search targets.
 * In case of absence of elements, these operations return null rather than throw exception.
@@ -107,4 +106,47 @@
   * E lower(E e) - returns element strictly lower than the element e
 * Used in range-interval problems
 
-### Map interface
+### Map interface, HashMap and HashTable
+![map_interface.png](../../../../../../references/map_interface.png)
+
+* Map is defined by an Entry, which is a Key-Value pair.
+* Keys are unique.
+* In a map both Keys and values should be objects.
+* It does not extend the collection interface, however mappings can be viewed as a collection - key set, value collection, entry set
+* Map is not iterable on its own, but we can traverse on these mappings.
+* `HashMap` (concrete class), `HashTable` (concrete class) ---implements---> `Map` (interface)
+* `HashMap` and `HashTable` are unordered maps.
+* Insertions, removals and key based lookups are of constant time.
+* Value based lookups take linear time.
+* HashMap - not thread safe, permits 1 null key, no performance overhead
+* HashTable - thread safe, no null key, performance overhead due to thread safety
+* Internals of a HashMap are similar to that of a HashSet - both require hashcode() and equals() methods to be overridden in the custom class to be used.
+* Map.Entry interface
+
+#### LinkedHashMap
+* `LinkedHashMap` (concrete class) ---extends---> `HashMap` (concrete class)
+* `LinkedHashMap` is an ordered map. It uses a doubly linkedlist behind the scenes (similar to LinkedHashSet). 
+* Ordering is based either on the insertion order or the entry access pattern (from least recently used to most recently used)
+* Ordering mode can be specified in the constructor of LinkedHashMap. Entry access pattern ordering is used in LRU cache.
+* Slightly slower than HashMaps due to the ordering overhead.
+
+#### SortedMap, NavigableMap interfaces, TreeMap
+* `SortedMap`, `NavigableMap` interfaces and their functionalities are analogous to `SortedSet` and `NavigableSet` interfaces.
+* `SortedMap` provides the functionality of `Map` implementation with sorted keys.
+* `TreeMap` (concrete class) ---implements---> `NavigableMap` (interface) ---extends---> `SortedMap` ---extends---> `Map` (interface)
+* `SortedMap` methods: `firstKey()`, `lastKey()`
+* `NavigableMap` provides the functionality of `SortedMap` implementation with navigation methods to find the closest matches for specific search targets.
+* NavigableMap methods:
+  * First-last elements 
+    * `Map.Entry<K, V> pollFirstEntry()` -> similar to Navigable set: `pollFirst()`
+    * `Map.Entry<K, V> pollLastEntry()` -> similar to Navigable set: `pollLast()`
+    * `Map.Entry<K, V> firstEntry()`
+    * `Map.Entry<K, V> lastEntry()`
+  * Closest Matches
+    * `Map.Entry<K, V> ceilingEntry(K key)` -> similar to Navigable set: `ceiling() • K ceilingKey(K key)`
+    * `Map.Entry<K, V> floorEntry(K key)` -> similar to Navigable set: `floor() • K floorKey(K key)`
+    * `Map.Entry<K, V> higherEntry(K key)` -> similar to Navigable set: `higher() • K higherKey(K key)`
+    * `Map.Entry<K, V> lowerEntry(K key)` -> similar to Navigable set: `lower() • K lowerKey(K key)`
+* Sorting of elements is done using either a comparable (natural ordering) or a comparator (total ordering) (same as priority queue)
+* TreeMaps use balanced trees.
+* Searching in a HashMap is faster than TreeMap as hashing algorithms are faster than search algorithms on a balanced tree.

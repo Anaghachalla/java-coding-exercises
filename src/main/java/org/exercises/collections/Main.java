@@ -30,6 +30,88 @@ public class Main {
         setDemo();
         sortedSetDemo();
 
+        //map
+        mapDemo();
+        sortedMapDemo();
+
+        //sort functions
+        sortFunctions();
+    }
+
+    static void sortFunctions() {
+        int[] arr = {9, 2, 4, 0 , 1};
+        Arrays.sort(arr);
+
+        Collections.sort(Arrays.asList(arr), Collections.reverseOrder()); //passing a comparator
+
+        Arrays.asList(arr).sort(Collections.reverseOrder());
+
+    }
+
+    static void sortedMapDemo() {
+        IO.println("Sorted Maps----------------");
+        NavigableMap<Integer, String> nmap = new TreeMap<>();
+        nmap.put(1919, "abc");
+        nmap.put(1909, "an");
+        nmap.put(1957, "ak");
+        nmap.put(1923, "my");
+
+        IO.println("Sorted map ascn : " + nmap);
+
+        NavigableMap<Integer, String> nmapDesc = new TreeMap<>((a,b) -> b-a);
+        nmapDesc.putAll(nmap);
+
+        IO.println("Sorted map desc: " + nmapDesc);
+
+        //other methods similar to TreeSets
+        IO.println("CeilingKey 1900: " + nmap.ceilingKey(1900));
+
+    }
+
+    static void mapDemo() {
+        //HashMap and LinkedHashMap both use the same methods, its just that LinkedHashMap maintains the order and HashMap doesn't.
+
+        IO.println("Maps----------------");
+        Map<String, Integer> studIds = new HashMap<>();
+        studIds.put("abc", 1919);
+        studIds.put("an", 1909);
+        studIds.put("ak", 1957);
+        studIds.put("my", 1923);
+        studIds.remove("abc");
+
+        IO.println("Id of an: " + studIds.getOrDefault("an", 0));
+        IO.println("Id of abc: " + studIds.getOrDefault("abc", -1)); //get() would return null in case the key does not exist in the map
+
+        IO.println("Contains key abc: " + studIds.containsKey("abc"));
+
+        Map<Integer, List<Integer>> adj = new HashMap<>();
+//        if (adj.get(9) != null) {
+//            adj.get(9).add(1);
+//        } else {
+//            adj.put(9, Arrays.asList(1));
+//        }
+        adj.computeIfAbsent(9, f -> new ArrayList<>()).add(1); //instead of the explicit null check above
+
+        //map traversals
+        IO.println("Entry set traversal:::");
+        Set<Map.Entry<String, Integer>> entrySet = studIds.entrySet();
+        for (Map.Entry<String, Integer> entry: entrySet) {
+            IO.println(entry.getKey() + ":" + entry.getValue());
+        }
+
+        IO.println("Key set traversal:::");
+        for(String s: studIds.keySet()) {
+            IO.println(s);
+        }
+
+        IO.println("value collection traversal:::");
+        for (int v: studIds.values()) {
+            IO.println(v);
+        }
+
+        // The third parameter 'true' enables access-order instead of insertion-order
+        // Map<String, Boolean> accessOrderedMap = new LinkedHashMap<>(16, 0.75f, true);
+
     }
 
     static void sortedSetDemo() {
@@ -97,7 +179,7 @@ public class Main {
 
     }
 
-    static List<StudentMarks> getStudentMarksList() {
+    private static List<StudentMarks> getStudentMarksList() {
         List<StudentMarks> smarks = new ArrayList<>();
         smarks.add(new StudentMarks("a", 70, 100));
         smarks.add(new StudentMarks("b", 100, 70));
@@ -327,6 +409,7 @@ public class Main {
     }
 
     static void traverseWithForEach(CustomCollection<Integer> cc) {
+        //enhanced for only works if the CustomCollection implements Iterable interface and overrides its next() and hasNext() methods
         for(int i : cc) {
             IO.println("Print with for: " + i);
         }
