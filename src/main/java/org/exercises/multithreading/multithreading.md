@@ -1,5 +1,5 @@
 1. Create a deadlock situation
-2. Create a multithreaded system and how they share resources
+2. Create a multithreaded system and demonstrate how they share resources
 
 
 ## Notes
@@ -34,6 +34,15 @@
 * producer-consumer problem
 * thread acquires a lock, but fails a conditional check -> lock.wait() -> scheduler hands lock to one of the other threads -> executes -> lock.notifyAll() -> previous wait thread will check the condition again, if checks pass then execute else wait() again.
 
-## join()
+### join()
 * join() is called on a thread. when that is done, parent thread waits for this thread to complete first and then continues execution, rather than getting executed simultaneously.
 * join(time) - parent thread waits till the time elapses and then continues executing simultaneously to this thread.
+
+#### Volatile
+* Each thread can cache variables in its local CPU cache rather than always reading from main memory.
+* A stale cached value is the core problem volatile solves.
+* eg: there could be scenarios where you have a flag, and threads are using that flag to decide on the operation to be done, and change the status of the flag.
+  * in such cases, threads make use of the local copy of the flag, which might have become stale/inconsistent since another thread has changed it.
+  * To solve this, make the variable volatile.
+* volatile guarantees that writes go directly to main memory, and reads always fetch from main memory — bypassing the thread's local cache entirely. So, all threads always see the latest value.
+* refer to singleton design pattern for code example

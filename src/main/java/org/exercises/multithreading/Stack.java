@@ -21,7 +21,7 @@ public class Stack {
     }
 
     static void justAMethod() {
-        synchronized (Stack.class) {
+        synchronized (Stack.class) { //lock via reflection
             IO.println("Demonstrating the standard practice of locking on a static method");
         }
     }
