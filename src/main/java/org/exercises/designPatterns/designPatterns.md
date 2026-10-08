@@ -7,3 +7,5 @@
 * Decorators wrap the original object and delegate to it, layering on extra functionality.
 * We use it when we need optional, combinable features — and we don't want a subclass explosion for every possible combination.
 
+## Observer pattern
+* Defines a one-to-many relationship between objects — when one object (the subject/observable) changes state, all its dependents (observers) are notified and updated automatically.
