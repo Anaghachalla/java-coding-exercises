@@ -1,12 +1,16 @@
-package org.exercises.streamAPI;
+package org.exercises.streamAPI.streamApi_practice;
 
-import java.util.*;
-import java.util.function.*;
-import java.util.stream.*;
+import java.util.List;
 
-public class StreamPractice {
+/**
+ * Sample employee dataset for Java Stream API practice.
+ *
+ * Requires Java 16+ because Employee is a record.
+ * For Java 8 or Java 11, replace the record with a regular class.
+ */
+public class EmployeeDataset {
 
-    record Employee(
+    public record Employee(
             int id,
             String name,
             String department,
@@ -15,8 +19,7 @@ public class StreamPractice {
             List<String> skills
     ) {}
 
-    void main(String[] args) {
-
+    void main() {
         List<Employee> employees = List.of(
                 new Employee(1, "Alice", "Engineering", 90000, 29,
                         List.of("Java", "AWS", "SQL")),
@@ -36,6 +39,8 @@ public class StreamPractice {
                         List.of("Java", "SQL"))
         );
 
-        // Practise your solutions here.
+        
+        // Quick sanity check
+        employees.forEach(System.out::println);
     }
 }
